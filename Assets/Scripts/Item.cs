@@ -5,9 +5,18 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
+    [SerializeField] private Outline _outline;
     private ItemInfo _itemInfo;
     private Vector3 _targetPosition;
     private bool _isMove;
+
+    public bool Active 
+    { 
+        set
+        {
+            _outline.enabled = value;
+        }
+    }
 
     public ItemInfo ItemInfo
     {
@@ -15,27 +24,25 @@ public class Item : MonoBehaviour
         set
         {
             if (_itemInfo == null)
+            {
                 _itemInfo = value;
+                Binder binderPosition = new Binder(this, "Active", _itemInfo, "Active");
+                _itemInfo.PositionChanged += (position) =>
+                {
+                    _targetPosition = position;
+                    StartCoroutine(MoveCorutine());
+                };
+                _itemInfo.Destroyed += () => Destroy(this.gameObject);
+            }
         }
-    }
-    
-    private void Start()
-    {
-        _itemInfo.PositionChanged += (position) =>
-        {
-            _targetPosition = position;
-            StartCoroutine(MoveCorutine());
-        };
     }
 
     private void OnMouseDown()
     {
         if (_isMove)
             return;
-        _itemInfo.Destroy();
-        Destroy(gameObject);
+        _itemInfo.Activate();
     }
-
     public void SetColor(Color color)
         => gameObject.GetComponent<MeshRenderer>().material.color = color;
 

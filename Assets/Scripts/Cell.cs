@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    private CellInfo _cellInfo;
+    [SerializeReference] private CellInfo _cellInfo;
     public CellInfo CellInfo => _cellInfo;
     public void SetCellInfo(CellInfo cellInfo)
     {

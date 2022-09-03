@@ -16,20 +16,7 @@ public class GridInfo
         _size = size;
         _grid = GridCreator.CreateCells(_size);
 
-        foreach (var gridInfo in _grid)
-            gridInfo.cellReleased += (position) => ChangeGrid(position);
 
         return _grid;
-    }
-
-    private void ChangeGrid(Vector2Int cellPosition)
-    {
-        for (var i = cellPosition.y; i > 0; i--)
-        {
-            var item = _grid[cellPosition.x, i - 1].GetItem;
-            _grid[cellPosition.x, i].SetItem(item);
-
-        }
-        GridCreator.itemCreator.CreateItem(State.GridController.GetCell(cellPosition.x, 0));
     }
 }
