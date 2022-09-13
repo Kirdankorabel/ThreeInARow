@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CellCreator : MonoBehaviour
 {
     [SerializeField] private Cell _prefab;
-    [SerializeField] private ItemCreator itemCreator;
+    [SerializeField] private ItemCreator _itemCreator;
 
     private void Awake()
     {
@@ -17,9 +15,9 @@ public class CellCreator : MonoBehaviour
         var x = cellInfo.GetPosition3.x;
         var y = cellInfo.GetPosition3.y;
 
-        var cell =  Instantiate(_prefab, new Vector3(x, y), Quaternion.identity, transform);
+        var cell =  Instantiate(_prefab, transform.position + new Vector3(x, y), Quaternion.identity, transform);
         cell.SetCellInfo(cellInfo);
-        var item = GridCreator.itemCreator.CreateItem(cell);
+        GridCreator.itemCreator.CreateItem(cell);
         return cell;
     }
 }

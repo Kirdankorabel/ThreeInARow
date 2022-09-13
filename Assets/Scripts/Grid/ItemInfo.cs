@@ -15,6 +15,7 @@ public class ItemInfo
 
     public event PropertyChangedEventHandler PropertyChanged;
 
+    public Vector3 Position { get; set; }
 
     public bool Active
     {
@@ -25,6 +26,8 @@ public class ItemInfo
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Active"));
         }
     }
+
+    public bool IsMove { get; set; }
 
     public ItemType ItemType => _itemType;
 

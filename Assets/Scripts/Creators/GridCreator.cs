@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class GridCreator
 {
     public static CellCreator cellCreator;
     public static ItemCreator itemCreator;
+
     public static CellInfo[,] CreateCells(Vector2Int size)
     {
         var grid = new CellInfo[size.x, size.y];

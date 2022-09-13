@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertLineChecker : ILineChecker
+public class HorisontalLineChecker : ILineChecker
 {
     private List<CellInfo> deletedItems;
 
@@ -19,21 +18,21 @@ public class VertLineChecker : ILineChecker
 
     private void CheckTop(int posX, int posY, ItemType itemType)
     {
-        if (posY == State.Size.y - 1) return;
-        while (State.GridController.GetCell(posX, posY + 1).CellInfo.GetItem.ItemType == itemType)
+        if (posX == State.Size.x - 1) return;
+        while (State.GridController.GetCell(posX + 1, posY).CellInfo.GetItem.ItemType == itemType)
         {
-            deletedItems.Add(State.GridController.GetCell(posX, ++posY).CellInfo);
-            if (posY == State.Size.y - 1) return;
+            deletedItems.Add(State.GridController.GetCell(++posX, posY).CellInfo);
+            if (posX == State.Size.x - 1) return;
         }
     }
 
     private void CheckDown(int posX, int posY, ItemType itemType)
     {
-        if (posY < 10) return;
-        while (State.GridController.GetCell(posX, posY - 1).CellInfo.GetItem.ItemType == itemType)
+        if (posX == 0) return;
+        while (State.GridController.GetCell(posX - 1, posY).CellInfo.GetItem.ItemType == itemType)
         {
-            deletedItems.Add(State.GridController.GetCell(posX, --posY).CellInfo);
-            if (posY == State.Size.y - 10) return;
+            deletedItems.Add(State.GridController.GetCell(--posX, posY).CellInfo);
+            if (posX == 0) return;
         }
     }
 }

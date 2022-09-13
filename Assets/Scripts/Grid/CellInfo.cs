@@ -36,7 +36,7 @@ public class CellInfo
     }
 
     public void ReleasedCell()
-    { 
+    {
         _item.Destroy();
         _item = null; 
     }

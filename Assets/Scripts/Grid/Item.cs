@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -30,11 +29,17 @@ public class Item : MonoBehaviour
                 _itemInfo.PositionChanged += (position) =>
                 {
                     _targetPosition = position;
-                    StartCoroutine(MoveCorutine());
+                    if (!_isMove)
+                        StartCoroutine(MoveCorutine());
                 };
                 _itemInfo.Destroyed += () => Destroy(this.gameObject);
             }
         }
+    }
+
+    private void Update()
+    {
+        _itemInfo.Position = transform.localPosition;
     }
 
     private void OnMouseDown()
@@ -43,18 +48,21 @@ public class Item : MonoBehaviour
             return;
         _itemInfo.Activate();
     }
+
     public void SetColor(Color color)
-        => gameObject.GetComponent<MeshRenderer>().material.color = color;
+        => gameObject.GetComponent<SpriteRenderer>().color = color;
 
     private IEnumerator MoveCorutine()
     {
         _isMove = true;
+        _itemInfo.IsMove = _isMove;
         while (Vector3.Distance(transform.localPosition, _targetPosition) > 0.01f)
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _targetPosition, _speed);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _targetPosition, _speed * Time.deltaTime);
             yield return null;
         }
         _isMove = false;
+        _itemInfo.IsMove = _isMove;
         yield return null;
     }
 }

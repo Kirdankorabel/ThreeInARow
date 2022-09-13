@@ -7,5 +7,9 @@ public enum ItemType
     red,
     yellow,
     green,
-    blue
+    blue,
+    orange,
+    grey,
+    violet,
+    black
 }

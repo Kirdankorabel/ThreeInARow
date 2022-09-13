@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class GridInfo
 {
-    private CellInfo[,] _grid;
-    private Vector2Int _size;
-    public Vector2Int GrtSizr => _size;
+    [SerializeField] private CellInfo[,] _grid;
+    [SerializeField] private Vector2Int _size;
 
     public event Action<ItemInfo> ItemDestroyed;
 
