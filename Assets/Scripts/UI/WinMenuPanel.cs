@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WinMenuPanel : MonoBehaviour, IEnabled
@@ -9,11 +10,12 @@ public class WinMenuPanel : MonoBehaviour, IEnabled
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _menuButton;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         UIController.AddUIObject(this.gameObject.name, this);
+
+
+        _menuButton.onClick.AddListener(() => SceneManager.LoadScene("StartScene"));
         Disable();
     }
 

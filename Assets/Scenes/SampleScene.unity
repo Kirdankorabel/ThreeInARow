@@ -2365,12 +2365,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _images:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _winText: {fileID: 0}
-  _acceptButton: {fileID: 0}
-  _winMenuPanel: {fileID: 0}
+  - {fileID: 706286510}
+  - {fileID: 1107516672}
+  - {fileID: 777634074}
+  _winText: {fileID: 1652400362}
+  _acceptButton: {fileID: 1460218554}
+  _uIPanel: {fileID: 1380230909}
 --- !u!1 &1240975041
 GameObject:
   m_ObjectHideFlags: 0
