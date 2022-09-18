@@ -10,7 +10,7 @@ public class GameUIPanel : MonoBehaviour, IEnabled
     [SerializeField] private Button _openMenuButton;
     private int _count;
 
-    void Start()
+    void Awake()
     {
         State.GameController.PointsAdded += (points) => AddPoints(points);
         State.GameController.Moved += (move) => _moveText.text = move.ToString();

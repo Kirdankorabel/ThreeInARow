@@ -35,9 +35,9 @@ public class GameController : MonoBehaviour
 
     public void LoadLevel()
     {
-        _gridController.LoadLevel();
         _movesCount = 0;
         _pointsCount = 0;
+        _gridController.LoadLevel();
         Moved?.Invoke(_movesCount);
         PointsAdded?.Invoke(_pointsCount);
     }
@@ -128,5 +128,14 @@ public class GameController : MonoBehaviour
     {
         _pointsCount += (int)(count / 3f * 10);
         PointsAdded?.Invoke(_pointsCount);
+    }
+
+    public int GetMoveCount() => _movesCount;
+    public int GetPointsCount() => _pointsCount;
+
+    public void SetCount(int movesCount, int pointsCount)
+    {
+        _movesCount = movesCount;
+        _pointsCount = pointsCount;
     }
 }

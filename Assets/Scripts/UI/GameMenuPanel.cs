@@ -20,14 +20,22 @@ public class GameMenuPanel : MonoBehaviour, IEnabled
             this.gameObject.SetActive(false);
         });
         _openSettingsButton.onClick.AddListener(() => UIController.GetUIObject("SettingsPanel").Enable());
-        _exitButton.onClick.AddListener(() =>
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");
-            DataSaver.saveData<GridInfo>(State.GridController.GetGridInfo, "save");
-            Debug.Log(33);
-        });
+        _exitButton.onClick.AddListener(() => Exit());
 
         Disable();
+    }
+
+    private void Exit()
+    {
+        GameState gameState = new GameState();
+        gameState.gridInfo = State.GridController.GetGridInfo;
+        gameState.level = StaticInfo.Level;
+        gameState.moves = State.GameController.GetMoveCount();
+        gameState.points = State.GameController.GetPointsCount();
+        DataSaver.SaveData<GameState>(gameState, "save");
+        StaticInfo.Level = null;
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");
     }
 
     public void Disable()

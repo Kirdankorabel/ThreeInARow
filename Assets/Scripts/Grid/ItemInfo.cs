@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
+[Serializable]
 public class ItemInfo
 {
     private Vector3 _position;

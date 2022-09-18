@@ -12,12 +12,18 @@ public class CellCreator : MonoBehaviour
 
     public Cell CreateCell(CellInfo cellInfo)
     {
-        var x = cellInfo.GetPosition3.x;
-        var y = cellInfo.GetPosition3.y;
-
-        var cell =  Instantiate(_prefab, transform.position + new Vector3(x, y), Quaternion.identity, transform);
+        var cell =  Instantiate(_prefab, transform.position + cellInfo.GetPosition3, Quaternion.identity, transform);
         cell.SetCellInfo(cellInfo);
         GridCreator.itemCreator.CreateItem(cell);
+        return cell;
+    }
+
+    public Cell LoadCell(CellInfo cellInfo)
+    {
+        var cell = Instantiate(_prefab, transform.position + cellInfo.GetPosition3, Quaternion.identity, transform);
+        
+        cell.SetCellInfo(cellInfo);
+        GridCreator.itemCreator.CreateItem(cell, cellInfo.GetItem);
         return cell;
     }
 }

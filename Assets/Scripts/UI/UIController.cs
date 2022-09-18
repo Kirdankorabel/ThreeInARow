@@ -12,8 +12,10 @@ public class UIController
 
     public static void AddUIObject(string name, IEnabled UIobject)
     {
-        if(!UIObjects.ContainsKey(name))
+        if (!UIObjects.ContainsKey(name))
             UIObjects.Add(name, UIobject);
+        else
+            UIObjects[name] = UIobject;
     }
 
     public static IEnabled GetUIObject(string name)

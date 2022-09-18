@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DataSaver
 {
-    public static void saveData<T>(T dataToSave, string dataFileName)
+    public static void SaveData<T>(T dataToSave, string dataFileName)
     {
         string tempPath = Path.Combine(Application.persistentDataPath, "data");
         tempPath = Path.Combine(tempPath, dataFileName + ".txt");

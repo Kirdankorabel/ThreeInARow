@@ -15,7 +15,7 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
-        _playlist = Store.GetAllAssets<AudioClip>("musics");
+        //_playlist = Store.GetAllAssets<AudioClip>("musics");
     }
 
     private void Start()
@@ -49,8 +49,8 @@ public class MusicManager : MonoBehaviour
 
     private void Play()
     {
-        nextClipStartTime = Time.time + _playlist[currentTrek].length;
-        songChanged?.Invoke(_playlist[currentTrek].name);
-        _player.PlayOneShot(_playlist[currentTrek]);
+        //nextClipStartTime = Time.time + _playlist[currentTrek].length;
+        //songChanged?.Invoke(_playlist[currentTrek].name);
+        //_player.PlayOneShot(_playlist[currentTrek]);
     }
 }

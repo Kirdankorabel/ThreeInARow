@@ -20,13 +20,20 @@ public class GridController : MonoBehaviour
 
     public void LoadLevel()
     {
-        _level = StaticInfo.Level;
-        if (_cells != null)
-            foreach (var cell in _cells)
-                Destroy(cell.gameObject);
-        CreateGrid();
         State.GridController = this;
         State.Size = _size;
+        if (StaticInfo.Level != null)
+        {
+            _level = StaticInfo.Level;
+            if (_cells != null)
+                foreach (var cell in _cells)
+                    Destroy(cell.gameObject);
+            CreateGrid();
+        }
+        else
+        {
+            LoadGrid();
+        }
     }
 
     private void CreateGrid()
@@ -35,11 +42,33 @@ public class GridController : MonoBehaviour
         _cells = new Cell[_size.x, _size.y];
         _gridInfo = new GridInfo();
         CellInfo[,] cells = _gridInfo.CreateGridInfo(_size);
-        foreach (var cell in cells)
+        foreach (var cell in _gridInfo.cells)
         {
             _cells[cell.GetPosition2.x, cell.GetPosition2.y] = GridCreator.cellCreator.CreateCell(cell);
             cell.cellActivated += () => _gameController.SelectItem(cell);
-            
+
+            cell.cellReleased += (cell) => GetNextItem(cell);
+        }
+    }
+
+    public void LoadGrid()
+    {
+        GameState gameState = DataSaver.loadData<GameState>("save");
+        _level = gameState.level;
+        _gridInfo = gameState.gridInfo;
+        _gameController.SetCount(gameState.moves, gameState.points);
+        CellInfo[,] cells = _gridInfo.Load();
+
+        ItemCreator.ResetItems();
+        StaticInfo.Level = new Level(3, 1000, new int[] { 4, 4, 10 });
+        _cells = new Cell[_size.x, _size.y];
+
+
+        foreach (var cell in _gridInfo.cells)
+        {
+            _cells[cell.GetPosition2.x, cell.GetPosition2.y] = GridCreator.cellCreator.LoadCell(cell);
+
+            cell.cellActivated += () => _gameController.SelectItem(cell);
             cell.cellReleased += (cell) => GetNextItem(cell);
         }
     }
