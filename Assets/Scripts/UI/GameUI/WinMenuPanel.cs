@@ -14,8 +14,11 @@ public class WinMenuPanel : MonoBehaviour, IEnabled
     {
         UIController.AddUIObject(this.gameObject.name, this);
 
-
-        _menuButton.onClick.AddListener(() => SceneManager.LoadScene("StartScene"));
+        _menuButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("StartScene");
+            DataSaver.SaveData<GameState>(State.gameState, "save");
+        });
         Disable();
     }
 

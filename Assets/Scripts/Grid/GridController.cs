@@ -53,10 +53,9 @@ public class GridController : MonoBehaviour
 
     public void LoadGrid()
     {
-        GameState gameState = DataSaver.loadData<GameState>("save");
-        _level = gameState.level;
-        _gridInfo = gameState.gridInfo;
-        _gameController.SetCount(gameState.moves, gameState.points);
+        _level = State.gameState.level;
+        _gridInfo = State.gameState.gridInfo;
+        _gameController.SetCount(State.gameState.moves, State.gameState.points);
         CellInfo[,] cells = _gridInfo.Load();
 
         ItemCreator.ResetItems();

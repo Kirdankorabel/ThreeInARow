@@ -32,6 +32,7 @@ public class GameMenuPanel : MonoBehaviour, IEnabled
         gameState.level = StaticInfo.Level;
         gameState.moves = State.GameController.GetMoveCount();
         gameState.points = State.GameController.GetPointsCount();
+        gameState.levels = State.gameState.levels;
         DataSaver.SaveData<GameState>(gameState, "save");
         StaticInfo.Level = null;
 

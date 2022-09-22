@@ -25,6 +25,8 @@ public class WinUIPanel : MonoBehaviour, IEnabled
 
     private void Win(int result)
     {
+        for (var i = 0; i < result + 1; i++)
+            _images[i].gameObject.SetActive(true);
         Enable();
     }
 

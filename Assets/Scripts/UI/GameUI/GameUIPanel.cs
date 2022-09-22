@@ -25,7 +25,6 @@ public class GameUIPanel : MonoBehaviour, IEnabled
         _countText.text = _count.ToString();
         _openMenuButton.onClick.AddListener(() => UIController.GetUIObject("GameMenuPanel").Enable());
 
-
         UIController.AddUIObject(this.gameObject.name, this);
     }
 
@@ -34,10 +33,16 @@ public class GameUIPanel : MonoBehaviour, IEnabled
         _countText.text = points.ToString();
         if (points > StaticInfo.Level.pointsToWin)
         {
+            Debug.Log(_moveCount);
             var res = 0;
-            for (var i = StaticInfo.Level.moves.Length; i > 0; i--)
-                if (_moveCount > StaticInfo.Level.moves[i - 1])
-                    res = i;
+            for (var i = 0; i < StaticInfo.Level.moves.Length; i++)
+                if (_moveCount < StaticInfo.Level.moves[i])
+                {
+                    res = 2 - i;
+                    break;
+                }
+            Debug.Log(res);
+            StaticInfo.Level.SetStatus(res + 1);
             Win?.Invoke(res);
         }
     }

@@ -1907,8 +1907,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelButtonPrefab: {fileID: 1536826038718986711, guid: 737632e5a64850b4aa3fbbf6d4cf488c, type: 3}
-  _levelButtons: []
   content: {fileID: 999492380}
+  _levels: []
+  _buttons: []
 --- !u!114 &1777313098
 MonoBehaviour:
   m_ObjectHideFlags: 0
