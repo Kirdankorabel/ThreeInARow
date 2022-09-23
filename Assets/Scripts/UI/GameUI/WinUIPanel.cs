@@ -13,7 +13,7 @@ public class WinUIPanel : MonoBehaviour, IEnabled
     void Start()
     {
         UIController.AddUIObject(this.gameObject.name, this);
-        _uIPanel.Win += (result) => Win(result);
+        StaticInfo.GameController.Win += (result) => Win(result);
         _acceptButton.onClick.AddListener(() =>
         {
             UIController.GetUIObject("WinMenuPanel").Enable();

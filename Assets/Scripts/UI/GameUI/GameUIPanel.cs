@@ -12,12 +12,11 @@ public class GameUIPanel : MonoBehaviour, IEnabled
     private int _count;
     private int _moveCount;
 
-    public event Action<int> Win;
 
     void Awake()
     {
-        State.GameController.PointsAdded += (points) => AddPoints(points);
-        State.GameController.Moved += ((move) =>
+        StaticInfo.GameController.PointsAdded += (points) => AddPoints(points);
+        StaticInfo.GameController.Moved += ((move) =>
         {
             _moveCount = move;
             _moveText.text = move.ToString();
@@ -31,20 +30,6 @@ public class GameUIPanel : MonoBehaviour, IEnabled
     public void AddPoints(int points)
     {
         _countText.text = points.ToString();
-        if (points > StaticInfo.Level.pointsToWin)
-        {
-            Debug.Log(_moveCount);
-            var res = 0;
-            for (var i = 0; i < StaticInfo.Level.moves.Length; i++)
-                if (_moveCount < StaticInfo.Level.moves[i])
-                {
-                    res = 2 - i;
-                    break;
-                }
-            Debug.Log(res);
-            StaticInfo.Level.SetStatus(res + 1);
-            Win?.Invoke(res);
-        }
     }
 
     public void Disable()

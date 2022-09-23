@@ -16,8 +16,8 @@ public class GameMenuPanel : MonoBehaviour, IEnabled
         _continueGameButton.onClick.AddListener(() => Disable());
         _restartLevelButton.onClick.AddListener(() =>
         {
-            State.GameController.LoadLevel();
-            this.gameObject.SetActive(false);
+            StaticInfo.GameController.LoadLevel();
+            Disable();
         });
         _openSettingsButton.onClick.AddListener(() => UIController.GetUIObject("SettingsPanel").Enable());
         _exitButton.onClick.AddListener(() => Exit());
@@ -28,11 +28,12 @@ public class GameMenuPanel : MonoBehaviour, IEnabled
     private void Exit()
     {
         GameState gameState = new GameState();
-        gameState.gridInfo = State.GridController.GetGridInfo;
+        gameState.gridInfo = StaticInfo.GridController.GetGridInfo;
         gameState.level = StaticInfo.Level;
-        gameState.moves = State.GameController.GetMoveCount();
-        gameState.points = State.GameController.GetPointsCount();
-        gameState.levels = State.gameState.levels;
+        gameState.moves = StaticInfo.GameController.GetMoveCount();
+        gameState.points = StaticInfo.GameController.GetPointsCount();
+        gameState.levels = StaticInfo.gameState.levels;
+        Debug.Log(gameState.levels[1]);
         DataSaver.SaveData<GameState>(gameState, "save");
         StaticInfo.Level = null;
 

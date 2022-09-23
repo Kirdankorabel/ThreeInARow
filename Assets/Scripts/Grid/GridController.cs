@@ -20,8 +20,8 @@ public class GridController : MonoBehaviour
 
     public void LoadLevel()
     {
-        State.GridController = this;
-        State.Size = _size;
+        StaticInfo.GridController = this;
+        StaticInfo.Size = _size;
         if (StaticInfo.Level != null)
         {
             _level = StaticInfo.Level;
@@ -53,9 +53,9 @@ public class GridController : MonoBehaviour
 
     public void LoadGrid()
     {
-        _level = State.gameState.level;
-        _gridInfo = State.gameState.gridInfo;
-        _gameController.SetCount(State.gameState.moves, State.gameState.points);
+        _level = StaticInfo.gameState.level;
+        _gridInfo = StaticInfo.gameState.gridInfo;
+        _gameController.SetCount(StaticInfo.gameState.moves, StaticInfo.gameState.points);
         CellInfo[,] cells = _gridInfo.Load();
 
         ItemCreator.ResetItems();
@@ -87,7 +87,7 @@ public class GridController : MonoBehaviour
                 return;
             }
         }
-        cellInfo.SetItem(GridCreator.itemCreator.CreateItem(State.GridController.GetCell(cellInfo.GetPosition2.x, 0)).ItemInfo);
+        cellInfo.SetItem(GridCreator.itemCreator.CreateItem(StaticInfo.GridController.GetCell(cellInfo.GetPosition2.x, 0)).ItemInfo);
     }
 
     public void ResetCheckList() => _checkList.Clear();

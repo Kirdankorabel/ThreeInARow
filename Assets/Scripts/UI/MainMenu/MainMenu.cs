@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour, IEnabled
     {
         _playButton.onClick.AddListener(() => SceneManager.LoadScene("SampleScene"));
         _selectLevelButton.onClick.AddListener(() => UIController.GetUIObject("LevelsPanel").Enable());
-        _selectLevelButton.onClick.AddListener(() => UIController.GetUIObject("Settingsss").Enable());
+        //_selectLevelButton.onClick.AddListener(() => UIController.GetUIObject("Settingsss").Enable());
         _quitButton.onClick.AddListener(() => Application.Quit());
         UIController.AddUIObject(this.gameObject.name, this);
     }

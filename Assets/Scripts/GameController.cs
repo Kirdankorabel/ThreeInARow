@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
 
     private List<CellInfo> _releasedCells;
 
+    public event Action<int> Win;
     public event Action<int> PointsAdded;
     public event Action<int> Moved;
 
@@ -25,7 +26,7 @@ public class GameController : MonoBehaviour
 
         _lineCheckers.Add(new VertLineChecker());
         _lineCheckers.Add(new HorisontalLineChecker());
-        State.GameController = this;
+        StaticInfo.GameController = this;
     }
 
     private void Start()
@@ -47,7 +48,7 @@ public class GameController : MonoBehaviour
         if (CheckMovingItems()) return;
         if (cellInfo.GetPosition2.y < 10) return;
 
-        State.GridController.ResetCheckList();
+        StaticInfo.GridController.ResetCheckList();
         _releasedCells = new List<CellInfo>();
         if (_cell1 == null)
         {
@@ -102,8 +103,8 @@ public class GameController : MonoBehaviour
         foreach (var item in releasedCells)
             item.SetNextItem();
 
-        if (State.GridController.GetCheckList.Count > 0)
-            StartCoroutine(Waiter.WaitCorutine(() => CheckMovingItems(), () => Check(State.GridController.GetCheckList)));
+        if (StaticInfo.GridController.GetCheckList.Count > 0)
+            StartCoroutine(Waiter.WaitCorutine(() => CheckMovingItems(), () => Check(StaticInfo.GridController.GetCheckList)));
     }
 
     public void Check(List<CellInfo> checkList)
@@ -118,7 +119,7 @@ public class GameController : MonoBehaviour
 
     private bool CheckMovingItems()
     {
-        foreach (var cell in State.GridController.GetCheckList)
+        foreach (var cell in StaticInfo.GridController.GetCheckList)
             if (cell.GetItem.IsMove)
                 return true;
         return false;
@@ -128,6 +129,19 @@ public class GameController : MonoBehaviour
     {
         _pointsCount += (int)(count / 3f * 10);
         PointsAdded?.Invoke(_pointsCount);
+
+        if (_pointsCount > StaticInfo.Level.pointsToWin)
+        {
+            var res = 0;
+            for (var i = 0; i < StaticInfo.Level.moves.Length; i++)
+                if (_movesCount < StaticInfo.Level.moves[i])
+                {
+                    res = 2 - i;
+                    break;
+                }
+            StaticInfo.Level.SetStatus(res + 1);
+            Win?.Invoke(res);
+        }
     }
 
     public int GetMoveCount() => _movesCount;

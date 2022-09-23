@@ -14,10 +14,20 @@ public class WinMenuPanel : MonoBehaviour, IEnabled
     {
         UIController.AddUIObject(this.gameObject.name, this);
 
+        _nextLevelButton.onClick.AddListener(() =>
+        {
+            var levelId = StaticInfo.Level.id;
+            if (StaticInfo.Level.id + 1 < StaticInfo.gameState.levels.Count)
+            {
+                StaticInfo.Level = StaticInfo.gameState.levels[StaticInfo.Level.id + 1];
+            }
+            StaticInfo.GameController.LoadLevel();
+            Disable();
+        });
         _menuButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("StartScene");
-            DataSaver.SaveData<GameState>(State.gameState, "save");
+            DataSaver.SaveData<GameState>(StaticInfo.gameState, "save");
         });
         Disable();
     }

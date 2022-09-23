@@ -8,19 +8,18 @@ public class LevelsPanel : MonoBehaviour, IEnabled
 
     private void Awake()
     {
-        State.gameState = DataSaver.loadData<GameState>("save");
-        var levels = State.gameState.levels;
-        if (levels == null || StaticInfo.levels.levels == null)
+        StaticInfo.gameState = DataSaver.loadData<GameState>("save");
+        if (StaticInfo.gameState.levels.Count == 0)
         {
-            State.gameState.levels = StaticInfo.levels.CreateLevels();
+            StaticInfo.gameState.levels = StaticInfo.levels.CreateLevels();
         }
         var counter = 0;
-        foreach (var level in StaticInfo.levels.levels)
+        foreach (var level in StaticInfo.gameState.levels)
         {
             level.LevelComplited += (id) =>
             {
-                if(id < StaticInfo.levels.levels.Count)
-                    StaticInfo.levels.levels[id + 1].SetStatus(0);
+                if(id < StaticInfo.gameState.levels.Count)
+                    StaticInfo.gameState.levels[id + 1].SetStatus(0);
             };
             level.id = counter;
             var button = Instantiate(_levelButtonPrefab, content.transform);
