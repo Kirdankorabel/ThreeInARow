@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,11 +12,7 @@ public class WinUIPanel : MonoBehaviour, IEnabled
     {
         UIController.AddUIObject(this.gameObject.name, this);
         StaticInfo.GameController.Win += (result) => Win(result);
-        _acceptButton.onClick.AddListener(() =>
-        {
-            UIController.GetUIObject("WinMenuPanel").Enable();
-            Disable();
-        });
+        _acceptButton.onClick.AddListener(() => UIController.GetUIObject("WinMenuPanel").Enable());
 
         Disable();
     }

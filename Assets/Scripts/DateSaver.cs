@@ -12,6 +12,7 @@ public class DataSaver
 
         string jsonData = JsonUtility.ToJson(dataToSave, true);
         byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
+        Debug.Log(tempPath);
 
         if (!Directory.Exists(Path.GetDirectoryName(tempPath)))
             Directory.CreateDirectory(Path.GetDirectoryName(tempPath));

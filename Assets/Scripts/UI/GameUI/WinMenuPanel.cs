@@ -13,15 +13,19 @@ public class WinMenuPanel : MonoBehaviour, IEnabled
     void Start()
     {
         UIController.AddUIObject(this.gameObject.name, this);
-
+        _restartButton.onClick.AddListener(() =>
+        {
+            StaticInfo.GameController.LoadLevel();
+            UIController.GetUIObject("WinPanel").Disable();
+            Disable();
+        });
         _nextLevelButton.onClick.AddListener(() =>
         {
             var levelId = StaticInfo.Level.id;
             if (StaticInfo.Level.id + 1 < StaticInfo.gameState.levels.Count)
-            {
                 StaticInfo.Level = StaticInfo.gameState.levels[StaticInfo.Level.id + 1];
-            }
             StaticInfo.GameController.LoadLevel();
+            UIController.GetUIObject("WinPanel").Disable();
             Disable();
         });
         _menuButton.onClick.AddListener(() =>

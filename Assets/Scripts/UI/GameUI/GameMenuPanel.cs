@@ -19,7 +19,7 @@ public class GameMenuPanel : MonoBehaviour, IEnabled
             StaticInfo.GameController.LoadLevel();
             Disable();
         });
-        _openSettingsButton.onClick.AddListener(() => UIController.GetUIObject("SettingsPanel").Enable());
+        _openSettingsButton.onClick.AddListener(() => UIController.GetUIObject("AudioSettingsPanel").Enable());
         _exitButton.onClick.AddListener(() => Exit());
 
         Disable();
@@ -33,7 +33,6 @@ public class GameMenuPanel : MonoBehaviour, IEnabled
         gameState.moves = StaticInfo.GameController.GetMoveCount();
         gameState.points = StaticInfo.GameController.GetPointsCount();
         gameState.levels = StaticInfo.gameState.levels;
-        Debug.Log(gameState.levels[1]);
         DataSaver.SaveData<GameState>(gameState, "save");
         StaticInfo.Level = null;
 

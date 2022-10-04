@@ -7,6 +7,7 @@ public class CreateAssetBundels
     {
         BuildPipeline.BuildAssetBundles("Assets/StreamingAssets", BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
     }
+
     [MenuItem("Assets/Buld BuildAllAssetBundelsFowAndroid")]
     public static void BuildAllAssetBundelsFowAndroid()
     {

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AudioSettingsPanel : MonoBehaviour, IEnabled
-    //IStateSaver<SettingsInfo>
 {
     [SerializeField] private MusicManager _musicManager;
     [SerializeField] private AudioSource _soundManager;
@@ -10,46 +9,55 @@ public class AudioSettingsPanel : MonoBehaviour, IEnabled
     [SerializeField] private Slider _volumeSoundSlider;
     [SerializeField] private Button _nextSongButton;
     [SerializeField] private Button _previousSongButton;
+    [SerializeField] private Button _quitButton;
     [SerializeField] private Text _songName;
 
     private void Awake()
     {
+        _quitButton.onClick.AddListener(() => gameObject.SetActive(false));
         _musicManager.songChanged += (name) => _songName.text = name;
     }
 
     void Start()
     {
-        //if (StaticInfo.date != null)
-        //    LoadState(StaticInfo.date.AudioSettingsinfo);
-        gameObject.SetActive(false);
+        if (StaticInfo.gameState != null)
+            LoadState(StaticInfo.gameState.SettingsInfo);
+
+        _volumeMusicSlider.onValueChanged.AddListener((value) => SetMusicVolume(value));
+        _volumeSoundSlider.onValueChanged.AddListener((value) => SetSoundVolume(value));
+
+        UIController.AddUIObject(this.gameObject.name, this);
+        Disable();
     }
 
-    public void SetMusicVolume() => _musicManager.GetAudioSource.volume = _volumeMusicSlider.value;
-    public void SetSoundVolume() => _soundManager.volume = _volumeSoundSlider.value;
-
-    public void Enable()
+    public void SetMusicVolume(float value)
     {
-        throw new System.NotImplementedException();
+        _musicManager.GetAudioSource.volume = value;
+        StaticInfo.gameState.SettingsInfo.musicVolume = value;
+        Debug.Log(StaticInfo.gameState.SettingsInfo.musicVolume);
+    }
+    public void SetSoundVolume(float value)
+    {
+        _soundManager.volume = value;
+        StaticInfo.gameState.SettingsInfo.soundVolume = value;
     }
 
     public void Disable()
+        => gameObject.SetActive(false);
+
+    public void Enable()
+        => gameObject.SetActive(true);
+
+    public void LoadState(SettingsInfo info)
     {
-        throw new System.NotImplementedException();
+        if (info == null)
+        {
+            StaticInfo.gameState.SettingsInfo = new SettingsInfo();
+            return;
+        }    
+        _volumeMusicSlider.value = info.musicVolume;
+        _musicManager.GetAudioSource.volume = info.musicVolume;
+        _volumeSoundSlider.value = info.soundVolume;
+        _soundManager.volume = info.soundVolume;
     }
-
-    //public SettingsInfo UpdateState()
-    //{
-    //    var result = new SettingsInfo();
-    //    result.musicVolume = _volumeMusicSlider.value;
-    //    result.soundVolume = _volumeSoundSlider.value;
-    //    return result;
-    //}
-
-    //public void LoadState(SettingsInfo info)
-    //{
-    //    _volumeMusicSlider.value = info.musicVolume;
-    //    _musicManager.GetAudioSource.volume = info.musicVolume;
-    //    _volumeSoundSlider.value = info.soundVolume;
-    //    _soundManager.volume = info.soundVolume;
-    //}
 }

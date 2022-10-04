@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class LevelsPanel : MonoBehaviour, IEnabled
 {
     [SerializeField] private LevelButton _levelButtonPrefab;
+    [SerializeField] private Button _quitButton;
     [SerializeField] private GameObject content;
 
     private void Awake()
@@ -28,11 +29,14 @@ public class LevelsPanel : MonoBehaviour, IEnabled
             button.GetComponent<Button>().interactable = level.status > -1;
         }
 
-        //content.GetComponent<RectTransform>().sizeDelta = new Vector2(_rectTransform.sizeDelta.x, size);
+        var rect = content.GetComponent<RectTransform>();
+        var sizeY = (_quitButton.GetComponent<RectTransform>().sizeDelta.y + 20) * StaticInfo.gameState.levels.Count;
+        content.GetComponent<RectTransform>().sizeDelta = new Vector2(rect.sizeDelta.x, sizeY);
     }
 
     void Start()
     {
+        _quitButton.onClick.AddListener(() => gameObject.SetActive(false));
         UIController.AddUIObject(this.gameObject.name, this);
         Disable();
     }

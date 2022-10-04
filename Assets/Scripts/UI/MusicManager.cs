@@ -20,13 +20,13 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
-        Play();
+        //Play();
     }
 
     private void Update()
     {
-        if (Time.time > nextClipStartTime)
-            Next();
+        //if (Time.time > nextClipStartTime)
+        //    Next();
     }
 
     public void Next()

@@ -41,6 +41,8 @@ public class GameController : MonoBehaviour
         _gridController.LoadLevel();
         Moved?.Invoke(_movesCount);
         PointsAdded?.Invoke(_pointsCount);
+        _cell1 = null;
+        StaticInfo.GridController.ResetCheckList();
     }
 
     public void SelectItem(CellInfo cellInfo)
